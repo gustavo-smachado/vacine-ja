@@ -1,5 +1,6 @@
 package br.com.esucri.vacineja.vacina;
 
+import java.time.LocalDate;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -30,7 +31,8 @@ public class VacinaService {
     public Vacina add(Vacina vacina) {
         validaTipo(vacina);
         validaExistenciaVacina(vacina);
-
+        validaFabricacao(vacina);
+        validaValidade(vacina);
         entityManager.persist(vacina);
         return vacina;
     }
@@ -38,7 +40,9 @@ public class VacinaService {
     public Vacina update(Vacina vacina) {
         Long id = vacina.getId();
         findById(id);        
-        validaTipo(vacina);        
+        validaTipo(vacina);
+        validaFabricacao(vacina);
+        validaValidade(vacina);        
         return entityManager.merge(vacina);
     }
 
@@ -49,6 +53,18 @@ public class VacinaService {
     private void validaTipo(Vacina vacina) {
         if (vacina.getTipo().length() < 3) {
             throw new BadRequestException("O tipo da vacina não pode conter menos que três caracteres");
+        }
+    }
+    
+    private void validaFabricacao(Vacina vacina) {
+        if (vacina.getFabricacao().isAfter(LocalDate.now())) {
+            throw new BadRequestException("A data de fabricação da vacina é posterior a data atual");
+        }
+    }
+    
+    private void validaValidade(Vacina vacina) {
+        if (vacina.getValidade().isBefore(LocalDate.now())) {
+            throw new BadRequestException("A data de validade da vacina é anterior a data atual");
         }
     }
 

@@ -1,5 +1,6 @@
 package br.com.esucri.vacineja.vacinado;
 
+import java.time.LocalDate;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -31,6 +32,9 @@ public class VacinadoService {
 
     public Vacinado add(Vacinado vacinado) {
         validaNome(vacinado);
+        validaRg(vacinado);
+        validaCpf(vacinado);
+        validaNascimento(vacinado);
         validaExistenciaVacinado(vacinado);
 
         entityManager.persist(vacinado);
@@ -40,7 +44,10 @@ public class VacinadoService {
     public Vacinado update(Vacinado vacinado) {
         Long id = vacinado.getId();
         findById(id);        
-        validaNome(vacinado);        
+        validaNome(vacinado);
+        validaRg(vacinado);
+        validaCpf(vacinado);        
+        validaNascimento(vacinado);
         return entityManager.merge(vacinado);
     }
 
@@ -51,6 +58,24 @@ public class VacinadoService {
     private void validaNome(Vacinado vacinado) {
         if (vacinado.getNome().length() < 3) {
             throw new BadRequestException("O nome do vacinado não pode conter menos que três caracteres");
+        }
+    }
+    
+    private void validaRg(Vacinado vacinado) {
+        if (vacinado.getRg().length() < 9) {
+            throw new BadRequestException("O RG do vacinado está incompleto");
+        }
+    }
+    
+    private void validaCpf(Vacinado vacinado) {
+        if (vacinado.getCpf().length() < 14) {
+            throw new BadRequestException("O CPF do vacinado está incompleto");
+        }
+    }
+    
+    private void validaNascimento(Vacinado vacinado) {
+        if (vacinado.getNascimento().isAfter(LocalDate.now())) {
+            throw new BadRequestException("A data de nascimento do vacinado é posterior a data atual");
         }
     }
 
