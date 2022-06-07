@@ -1,6 +1,9 @@
 package br.com.esucri.vacineja.vacina;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,6 +20,17 @@ public class VacinaService {
         return entityManager
                 .createQuery("SELECT v FROM Vacina v")
                 .getResultList();
+    }
+
+    public Map<Long, Long> dashboard() {
+        List<Long> vacinas = entityManager
+                .createQuery("SELECT EXTRACT(MONTH FROM v.validade) AS MonthOfDate FROM Vacina v")
+                .getResultList();
+        
+       Map<Long, Long> counted = vacinas.stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+       
+       return counted;
     }
 
     public Vacina findById(Long id) {

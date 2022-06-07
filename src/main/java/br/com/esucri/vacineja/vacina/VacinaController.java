@@ -1,6 +1,7 @@
 package br.com.esucri.vacineja.vacina;
 
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -28,7 +29,7 @@ public class VacinaController {
     @GET
     @Path("{id}")
     public Vacina findById(@PathParam("id") Long id) {
-        return this.vacinaService.findById(id);
+       return this.vacinaService.findById(id);
     }
     
     @POST
