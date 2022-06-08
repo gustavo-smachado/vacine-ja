@@ -1,6 +1,7 @@
 package br.com.esucri.vacineja.vacinado;
 
 import br.com.esucri.vacineja.vacina.Vacina;
+import br.com.esucri.vacineja.vacinador.Vacinador;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -48,6 +49,17 @@ public class Vacinado implements Serializable {
     )
     
     private List<Vacina> vacinas;
+    
+    @ManyToMany(fetch = FetchType.EAGER)    
+    @JoinTable(
+        name="vacina_vacinadores",
+        joinColumns = @JoinColumn(name = "id_vacinados"),
+        inverseJoinColumns = @JoinColumn(name = "id_vacinador"),
+        foreignKey = @ForeignKey(name = "fk_vacinados"),
+        inverseForeignKey = @ForeignKey(name = "fk_vacinar")
+    )
+    
+    private List<Vacinador> vacinadores;
     
     public Vacinado() {
     } 
@@ -106,6 +118,14 @@ public class Vacinado implements Serializable {
 
     public void setVacinas(List<Vacina> vacinas) {
         this.vacinas = vacinas;
+    }
+    
+    public List<Vacinador> getVacinadores() {
+        return vacinadores;
+    }
+
+    public void setVacinadores(List<Vacinador> vacinadores) {
+        this.vacinadores = vacinadores;
     }
     
 }
