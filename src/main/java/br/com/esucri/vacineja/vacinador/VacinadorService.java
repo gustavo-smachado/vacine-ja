@@ -79,8 +79,8 @@ public class VacinadorService {
 
     private void validaExistenciaVacinador(Vacinador vacinador) {
         List<Vacinador> resultList = entityManager
-                .createQuery("SELECT v FROM Vacinador v WHERE LOWER(v.nome) = :nome", Vacinador.class)
-                .setParameter("nome", vacinador.getNome().toLowerCase())
+                .createQuery("SELECT v FROM Vacinador v WHERE v.cpf = :cpf", Vacinador.class)
+                .setParameter("cpf", vacinador.getCpf())
                 .getResultList();
         
         if (resultList != null && !resultList.isEmpty()) {
