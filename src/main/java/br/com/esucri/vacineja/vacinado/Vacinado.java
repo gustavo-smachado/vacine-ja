@@ -54,11 +54,11 @@ public class Vacinado implements Serializable {
     
     @ManyToMany(fetch = FetchType.EAGER)    
     @JoinTable(
-        name="vacina_vacinadores",
+        name="vacinadores_vacinados",
         joinColumns = @JoinColumn(name = "id_vacinados"),
         inverseJoinColumns = @JoinColumn(name = "id_vacinador"),
         foreignKey = @ForeignKey(name = "fk_vacinados"),
-        inverseForeignKey = @ForeignKey(name = "fk_vacinar")
+        inverseForeignKey = @ForeignKey(name = "fk_vacinador")
     )
     
     private List<Vacinador> vacinadores;
