@@ -16,13 +16,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 @Table(name = "vacinados", schema = "public")
+@SequenceGenerator(name = "VACINADO_SEQ", sequenceName = "VACINADO_SEQ")
 public class Vacinado implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="VACINADO_SEQ")
     private Long id;
     
     @Column(nullable = false, unique = true)

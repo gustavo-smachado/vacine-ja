@@ -8,13 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 @Table(name = "vacinas", schema = "public")
+@SequenceGenerator(name = "VACINA_SEQ", sequenceName = "VACINA_SEQ")
 public class Vacina implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VACINA_SEQ")
     private Long id;
     
     @Column(nullable = false, unique = true)
