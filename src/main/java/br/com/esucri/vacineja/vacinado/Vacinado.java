@@ -41,7 +41,7 @@ public class Vacinado implements Serializable {
     
     private LocalDate nascimento;
        
-    @ManyToMany(fetch = FetchType.EAGER)    
+    @ManyToMany
     @JoinTable(
         name="vacina_vacinados",
         joinColumns = @JoinColumn(name = "id_vacinados"),
@@ -52,7 +52,7 @@ public class Vacinado implements Serializable {
     
     private List<Vacina> vacinas;
     
-    @ManyToMany(fetch = FetchType.EAGER)    
+    @ManyToMany    
     @JoinTable(
         name="vacinadores_vacinados",
         joinColumns = @JoinColumn(name = "id_vacinados"),
