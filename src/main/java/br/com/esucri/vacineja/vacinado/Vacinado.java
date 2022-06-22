@@ -5,6 +5,7 @@ import br.com.esucri.vacineja.vacinador.Vacinador;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,6 +43,7 @@ public class Vacinado implements Serializable {
     private LocalDate nascimento;
        
     @ManyToMany
+    @JsonbTransient
     @JoinTable(
         name="vacina_vacinados",
         joinColumns = @JoinColumn(name = "id_vacinados"),
@@ -52,7 +54,8 @@ public class Vacinado implements Serializable {
     
     private List<Vacina> vacinas;
     
-    @ManyToMany    
+    @ManyToMany
+    @JsonbTransient
     @JoinTable(
         name="vacinadores_vacinados",
         joinColumns = @JoinColumn(name = "id_vacinados"),
