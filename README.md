@@ -1,6 +1,6 @@
-# Vacine-Já
+# Vacine Já
 
-Aplicação web Java EE (`br.com.esucri:vacine-ja`) empacotada em `.war` com Maven, desenvolvida para o projeto Vacine-Já.
+Aplicação web Java EE (`br.com.esucri:vacine-ja`) empacotada em `.war` com Maven, desenvolvida para o projeto Vacine Já.
 
 ## Tecnologias utilizadas
 
